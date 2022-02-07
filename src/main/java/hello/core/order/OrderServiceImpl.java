@@ -6,7 +6,10 @@ import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class OrderServiceImpl implements OrderService {
 
     private final MemberRepository memberRepository;
@@ -14,7 +17,7 @@ public class OrderServiceImpl implements OrderService {
 //    private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
 //    private final DiscountPolicy discountPolicy = new RateDiscountPolicy(); // DIP 법칙 위반 , 추상에도 의존하고 구현 객체에도 의존하고 있다.
 
-
+    @Autowired
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
@@ -26,5 +29,10 @@ public class OrderServiceImpl implements OrderService {
         int discountPrice = discountPolicy.discount(member, itemPrice);
 
         return new Order(memberId, itemName, itemPrice, discountPrice);
+    }
+
+    //테스트 용도
+    public MemberRepository getMemberRepository() {
+        return memberRepository;
     }
 }
