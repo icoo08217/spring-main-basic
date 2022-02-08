@@ -35,6 +35,7 @@ public class AppConfig { // 애플리케이션의 전체를 설정한다는 클�
     public OrderService orderService(){
         System.out.println("call AppConfig.orderService");
         return new OrderServiceImpl(memberRepository(), discountPolicy()); // 주입 . Injection
+
     }
 
     @Bean
